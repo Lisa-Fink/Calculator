@@ -91,13 +91,18 @@
                 }
             // calculating the result
             if (firstPart == false &&  inputB != ''){
-                inputA = operate(oper, Number(inputA), Number(inputB))
-                inputB = ''
-                // if calculating because another operator is pressed update the
-                // oper variable to display on screen otherwise remove it
-                pressed != '=' ? oper = pressed : (oper = '', firstPart=true)
-                updateDisplay()
-            }
+                //first check if dividing by 0
+                if (oper =='/' && inputB == '0') {
+                    screen.innerText = 'ERROR'
+                    clear()
+                } else {
+                    inputA = operate(oper, Number(inputA), Number(inputB))
+                    inputB = ''
+                    // if calculating because another operator is pressed update the
+                    // oper variable to display on screen otherwise remove it
+                    pressed != '=' ? oper = pressed : (oper = '', firstPart=true)
+                    updateDisplay()
+            }}
             // enter the operator and move on to inputB
             if (inputA != '' && pressed != '=') {
                 oper = pressed
