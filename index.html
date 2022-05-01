@@ -89,22 +89,16 @@
             if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
                 null
                 }
-                // if second part is already entered and the operator being pressed
-                // isn't '=', proceed as if = is pressed and continue on that result
-            if (firstPart == false &&  inputB != '' && pressed != '=') {
+            // calculating the result
+            if (firstPart == false &&  inputB != ''){
                 inputA = operate(oper, Number(inputA), Number(inputB))
                 inputB = ''
-                oper = pressed
+                // if calculating because another operator is pressed update the
+                // oper variable to display on screen otherwise remove it
+                pressed != '=' ? oper = pressed : (oper = '', firstPart=true)
                 updateDisplay()
             }
-            // If least one digit is entered for inputB, calculate = if pressed
-            if (firstPart == false &&  inputB != '' && pressed == '=') {
-                inputA = operate(oper, Number(inputA), Number(inputB))
-                inputB = ''
-                oper = ''
-                updateDisplay() 
-            }
-
+            // enter the operator and move on to inputB
             if (inputA != '' && pressed != '=') {
                 oper = pressed
                 firstPart = false 
