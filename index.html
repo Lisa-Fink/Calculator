@@ -10,7 +10,7 @@
 <body>
     <div id="calculator">
         <div id="screen">
-            12345
+            
         </div>
         <div id="input-div">
             <div class="left-inputs">
@@ -41,7 +41,11 @@
 
     </div>
     <script>
-
+        let inputA = ''
+        let inputB = ''
+        let oper = ''
+        let display = `${inputA} ${oper} ${inputB}`
+        let firstPart = true
 
         const add = (a, b) => a + b
         const sub = (a, b) => a - b
@@ -60,6 +64,70 @@
                     return div(a,b)
             }
         }
+
+    const screen = document.getElementById('screen')
+    
+
+    const buttons = [...document.querySelectorAll('button')]
+    buttons.forEach(button => (button.addEventListener("click", buttonClick)))
+    buttons.forEach(button => (button.addEventListener("mousedown", selectBtn)))
+    buttons.forEach(button => (button.addEventListener("mouseup", selectBtn)))
+
+
+    function buttonClick(e) {
+        let pressed = e.target.innerText
+        // check if button is an input or operator
+        if (e.target.className == 'input-btn') {
+            if (pressed == 'C') {
+                clear()
+            } else {
+                firstPart ? inputA += pressed : inputB += pressed
+            }
+            updateDisplay()
+        } else {
+            // ignore pressing the equal sign before second input
+            if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
+                null
+                }
+                // if second part is already entered and the operator being pressed
+                // isn't '=', proceed as if = is pressed and continue on that result
+            if (firstPart == false &&  inputB != '' && pressed != '=') {
+                inputA = operate(oper, Number(inputA), Number(inputB))
+                inputB = ''
+                oper = pressed
+                updateDisplay()
+            }
+            // If least one digit is entered for inputB, calculate = if pressed
+            if (firstPart == false &&  inputB != '' && pressed == '=') {
+                inputA = operate(oper, Number(inputA), Number(inputB))
+                inputB = ''
+                oper = ''
+                updateDisplay() 
+            }
+
+            if (inputA != '' && pressed != '=') {
+                oper = pressed
+                firstPart = false 
+                updateDisplay()
+            }
+        }
+    }
+        
+    function clear() {
+        inputA = ''
+        inputB = ''
+        oper = ''
+        firstPart = true
+    }
+
+    function selectBtn(e) {
+        e.target.classList.toggle('clicked')
+    }
+
+    function updateDisplay() {
+        display = `${inputA} ${oper} ${inputB}`
+        screen.innerText = display
+    }
     </script>
 </body>
 </html>
