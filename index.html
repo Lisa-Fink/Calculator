@@ -55,13 +55,13 @@
         function operate (operator, a, b) {
             switch (operator) {
                 case '+':
-                    return add(a,b)
+                    return Math.round(add(a,b) * 100) / 100
                 case '-':
-                    return sub(a,b)
+                    return Math.round(sub(a,b) * 100) / 100
                 case '*':
-                    return mult(a,b)
+                    return Math.round(mult(a,b) * 100) / 100
                 case '/':
-                    return div(a,b)
+                    return Math.round(div(a,b) * 100) / 100
             }
         }
 
@@ -80,6 +80,14 @@
         if (e.target.className == 'input-btn') {
             if (pressed == 'C') {
                 clear()
+            }
+            // check if there's a decimal before adding another one
+            else if (pressed == '.') {
+                if (firstPart) {
+                    inputA.includes('.') ? null :  inputA += pressed
+                } else {
+                    inputB.includes('.') ? null: inputB += pressed
+                }
             } else {
                 firstPart ? inputA += pressed : inputB += pressed
             }
@@ -110,6 +118,7 @@
                 updateDisplay()
             }
         }
+        console.log(`a:${inputA} b:${inputB}`)
     }
         
     function clear() {
