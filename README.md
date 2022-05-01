@@ -1,2 +1,2 @@
 # Calculator
-A Javascrdipt Calculator that runs in the browser.
+A Javascript Calculator that runs in the browser.
