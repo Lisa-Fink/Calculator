@@ -154,41 +154,47 @@
     }
 
     function keyPressed(e) {
-        let pressed = e.key;
-        let type = 'input-btn'
-        switch (e.key) {
-            case 'c':
-            case 'Escape':
-                pressed = 'C';
-                break;
-            case 'Enter':
-                pressed = '=';
-                type = 'operator-btn';
-                break;
-            case 'Backspace':
-                pressed = '<--';
-                break;
-            case 'x':
-            case 'X':
-                pressed = '*';
-                type = 'operator-btn';
-                break;
-            case '/':
-            case '*':
-            case '-':
-            case '+':
-            case '=':
-                type = 'operator-btn';
-                break;
+        console.log(e.key)
+         const keysUsed = [
+            '1', '2', '3', '4', '5','6', '7', '8', '9','0','-','+','Backspace',
+            'x', 'X', 'c', 'C', '*', '/', '=', 'Enter', 'Escape', '.'
+        ]
+        if (keysUsed.includes(e.key)) {
+            let pressed = e.key;
+            let type = 'input-btn'
+            switch (e.key) {
+                case 'c':
+                case 'Escape':
+                    pressed = 'C';
+                    break;
+                case 'Enter':
+                    pressed = '=';
+                    type = 'operator-btn';
+                    break;
+                case 'Backspace':
+                    pressed = '<--';
+                    break;
+                case 'x':
+                case 'X':
+                    pressed = '*';
+                    type = 'operator-btn';
+                    break;
+                case '/':
+                case '*':
+                case '-':
+                case '+':
+                case '=':
+                    type = 'operator-btn';
+                    break;
+            }
+            calculator(pressed, type);
         }
-
-        calculator(pressed, type);
     }
 
     function buttonClick(e) {
         let pressed = e.target.innerText;
         let type = e.target.className;
-        calculator(pressed, type)
+        calculator(pressed, type);
     }
     </script>
 </body>
