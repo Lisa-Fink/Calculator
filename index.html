@@ -26,8 +26,7 @@
                 <button class="input-btn">1</button>
                 <button class="input-btn"><--</button>
                 <button class="input-btn">0</button>
-                <button class="input-btn">.</button>
-                
+                <button class="input-btn">.</button>          
             </div>
             <div class="operators">
                 <button class="operator-btn">/</button>
@@ -35,10 +34,8 @@
                 <button class="operator-btn">-</button>
                 <button class="operator-btn">+</button>
                 <button class="operator-btn">=</button>
-
             </div>
         </div>
-
     </div>
     <script>
         let inputA = '';
@@ -47,7 +44,8 @@
 
         let firstPart = true;
 
-        
+        const screen = document.getElementById('digits');
+        screen.innerText = 0;        
 
         const add = (a, b) => a + b;
         const sub = (a, b) => a - b;
@@ -65,16 +63,12 @@
                 case '/':
                     return (Math.round(div(a,b) * 100) / 100).toString();
             };
-        }
-
-    const screen = document.getElementById('digits');
-    screen.innerText = 0;
+        };
 
     const buttons = [...document.querySelectorAll('button')];
     buttons.forEach(button => (button.addEventListener("mousedown", buttonClick)));
     buttons.forEach(button => (button.addEventListener("mousedown", selectBtn)));
     buttons.forEach(button => (button.addEventListener("mouseup", selectBtn)));
-
     document.addEventListener("keydown", keyPressed);
 
     function calculator(pressed, type) {
@@ -82,8 +76,7 @@
         if (type == 'input-btn') {
             if (pressed == 'C') {
                 clear();
-            }
-            else if (pressed == '<--') {
+            } else if (pressed == '<--') {
                 firstPart ? 
                     inputA != '' ? inputA = inputA.slice(0,-1) : null : null;
                 firstPart == false ? 
@@ -97,12 +90,12 @@
                     inputA.includes('.') ? null :  inputA += pressed;
                 } else {
                     inputB.includes('.') ? null: inputB += pressed;
-                }
+                };
                 updateDisplay();
             } else {
                 firstPart ? inputA += pressed : inputB += pressed;
                 updateDisplay();
-            }
+            };
             
         } else {
             // ignore pressing the equal sign before second input
