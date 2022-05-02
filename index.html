@@ -44,8 +44,10 @@
         let inputA = ''
         let inputB = ''
         let oper = ''
-        let display = `${inputA} ${oper} ${inputB}`
+
         let firstPart = true
+
+        
 
         const add = (a, b) => a + b
         const sub = (a, b) => a - b
@@ -66,7 +68,7 @@
         }
 
     const screen = document.getElementById('digits')
-    
+    screen.innerText = 0
 
     const buttons = [...document.querySelectorAll('button')]
     buttons.forEach(button => (button.addEventListener("mousedown", buttonClick)))
@@ -145,7 +147,7 @@
     }
 
     function updateDisplay() {
-        display = `${inputA} ${oper} ${inputB}`;
+        display = inputA == '' ? 0 : `${inputA} ${oper} ${inputB}`
         screen.innerText = display;
         if (screen.innerText.length > 13) {
             screen.innerText = 'TOO LONG';
