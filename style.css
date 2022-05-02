@@ -23,12 +23,12 @@ body {
     font-size: 78px;
 }
 
+
 #input-div {
     display: flex;
     justify-content: space-between;
     padding: 20px;
 }
-
 
 .operators {
     display: flex;

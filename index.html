@@ -69,96 +69,127 @@
     
 
     const buttons = [...document.querySelectorAll('button')]
-    buttons.forEach(button => (button.addEventListener("click", buttonClick)))
+    buttons.forEach(button => (button.addEventListener("mousedown", buttonClick)))
     buttons.forEach(button => (button.addEventListener("mousedown", selectBtn)))
     buttons.forEach(button => (button.addEventListener("mouseup", selectBtn)))
 
+    document.addEventListener("keydown", keyPressed)
 
-    function buttonClick(e) {
-        let pressed = e.target.innerText
+    function calculator(pressed, type) {
         // check if button is an input or operator
-        if (e.target.className == 'input-btn') {
+        if (type == 'input-btn') {
             if (pressed == 'C') {
-                clear()
+                clear();
             }
             else if (pressed == '<--') {
                 firstPart ? 
-                    inputA != '' ? (
-                        inputA = inputA.slice(0,-1), updateDisplay(b=true)) :
-                        null : null
+                    inputA != '' ? inputA = inputA.slice(0,-1) : null : null;
                 firstPart == false ? 
                     inputB.length != '' ? inputB = inputB.slice(0,-1) :
-                    oper != '' ? (oper = '', firstPart=true, updateDisplay(b=true)): 
-                    null : null
-
-                
+                    oper != '' ? (oper = '', firstPart=true): null : null;
+                updateDisplay()
             }
             // check if there's a decimal before adding another one
             else if (pressed == '.') {
                 if (firstPart) {
-                    inputA.includes('.') ? null :  inputA += pressed
+                    inputA.includes('.') ? null :  inputA += pressed;
                 } else {
-                    inputB.includes('.') ? null: inputB += pressed
+                    inputB.includes('.') ? null: inputB += pressed;
                 }
-                updateDisplay()
+                updateDisplay();
             } else {
-                firstPart ? inputA += pressed : inputB += pressed
-                updateDisplay()
+                firstPart ? inputA += pressed : inputB += pressed;
+                updateDisplay();
             }
             
         } else {
             // ignore pressing the equal sign before second input
             if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
-                null
+                null;
                 }
             // calculating the result
             if (firstPart == false &&  inputB != ''){
                 //first check if dividing by 0
                 if (oper =='/' && inputB == '0') {
-                    screen.innerText = 'ERROR'
-                    clear(error=true)
+                    screen.innerText = 'ERROR';
+                    clear(error=true);
                 } else {
-                    inputA = operate(oper, Number(inputA), Number(inputB))
-                    inputB = ''
+                    inputA = operate(oper, Number(inputA), Number(inputB));
+                    inputB = '';
                     // if calculating because another operator is pressed update the
                     // oper variable to display on screen otherwise remove it
-                    pressed != '=' ? oper = pressed : (oper = '', firstPart=true)
-                    updateDisplay()
+                    pressed != '=' ? oper = pressed : (oper = '', firstPart=true);
+                    updateDisplay();
             }}
             // enter the operator and move on to inputB
             if (inputA != '' && pressed != '=') {
-                oper = pressed
-                firstPart = false 
-                updateDisplay()
+                oper = pressed;
+                firstPart = false;
+                updateDisplay();
             }
         }
     }
         
     function clear(error=false) {
-        inputA = ''
-        inputB = ''
-        oper = ''
-        firstPart = true
-        screen.style.fontSize = '78px'
-        error ? null: updateDisplay()
+        inputA = '';
+        inputB = '';
+        oper = '';
+        firstPart = true;
+        screen.style.fontSize = '78px';
+        error ? null: updateDisplay();
     }
 
     function selectBtn(e) {
-        e.target.classList.toggle('clicked')
+        e.type == "mousedown" ? e.target.classList.add('clicked') : 
+            e.target.classList.remove('clicked')
     }
 
-    function updateDisplay(b=false) {
-        display = `${inputA} ${oper} ${inputB}`
-        screen.innerText = display
+    function updateDisplay() {
+        display = `${inputA} ${oper} ${inputB}`;
+        screen.innerText = display;
         if (screen.innerText.length > 13) {
-            screen.innerText = 'TOO LONG'
-            clear(error=true)
+            screen.innerText = 'TOO LONG';
+            clear(error=true);
         }
     }
 
+    function keyPressed(e) {
+        let pressed = e.key;
+        let type = 'input-btn'
+        switch (e.key) {
+            case 'c':
+            case 'Escape':
+                pressed = 'C';
+                break;
+            case 'Enter':
+                pressed = '=';
+                type = 'operator-btn';
+                break;
+            case 'Backspace':
+                pressed = '<--';
+                break;
+            case 'x':
+            case 'X':
+                pressed = '*';
+                type = 'operator-btn';
+                break;
+            case '/':
+            case '*':
+            case '-':
+            case '+':
+            case '=':
+                type = 'operator-btn';
+                break;
+        }
 
-        
+        calculator(pressed, type);
+    }
 
+    function buttonClick(e) {
+        let pressed = e.target.innerText;
+        let type = e.target.className;
+        calculator(pressed, type)
+    }
     </script>
 </body>
 </html>
