@@ -41,41 +41,41 @@
 
     </div>
     <script>
-        let inputA = ''
-        let inputB = ''
-        let oper = ''
+        let inputA = '';
+        let inputB = '';
+        let oper = '';
 
-        let firstPart = true
+        let firstPart = true;
 
         
 
-        const add = (a, b) => a + b
-        const sub = (a, b) => a - b
-        const mult = (a, b) => a * b
-        const div = (a, b) => a / b 
+        const add = (a, b) => a + b;
+        const sub = (a, b) => a - b;
+        const mult = (a, b) => a * b;
+        const div = (a, b) => a / b ;
 
         function operate (operator, a, b) {
             switch (operator) {
                 case '+':
-                    return (Math.round(add(a,b) * 100) / 100).toString()
+                    return (Math.round(add(a,b) * 100) / 100).toString();
                 case '-':
-                    return (Math.round(sub(a,b) * 100) / 100).toString()
+                    return (Math.round(sub(a,b) * 100) / 100).toString();
                 case '*':
-                    return (Math.round(mult(a,b) * 100) / 100).toString()
+                    return (Math.round(mult(a,b) * 100) / 100).toString();
                 case '/':
-                    return (Math.round(div(a,b) * 100) / 100).toString()
-            }
+                    return (Math.round(div(a,b) * 100) / 100).toString();
+            };
         }
 
-    const screen = document.getElementById('digits')
-    screen.innerText = 0
+    const screen = document.getElementById('digits');
+    screen.innerText = 0;
 
-    const buttons = [...document.querySelectorAll('button')]
-    buttons.forEach(button => (button.addEventListener("mousedown", buttonClick)))
-    buttons.forEach(button => (button.addEventListener("mousedown", selectBtn)))
-    buttons.forEach(button => (button.addEventListener("mouseup", selectBtn)))
+    const buttons = [...document.querySelectorAll('button')];
+    buttons.forEach(button => (button.addEventListener("mousedown", buttonClick)));
+    buttons.forEach(button => (button.addEventListener("mousedown", selectBtn)));
+    buttons.forEach(button => (button.addEventListener("mouseup", selectBtn)));
 
-    document.addEventListener("keydown", keyPressed)
+    document.addEventListener("keydown", keyPressed);
 
     function calculator(pressed, type) {
         // check if button is an input or operator
@@ -89,7 +89,7 @@
                 firstPart == false ? 
                     inputB.length != '' ? inputB = inputB.slice(0,-1) :
                     oper != '' ? (oper = '', firstPart=true): null : null;
-                updateDisplay()
+                updateDisplay();
             }
             // check if there's a decimal before adding another one
             else if (pressed == '.') {
@@ -108,7 +108,7 @@
             // ignore pressing the equal sign before second input
             if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
                 null;
-                }
+                };
             // calculating the result
             if (firstPart == false &&  inputB != ''){
                 //first check if dividing by 0
@@ -122,15 +122,15 @@
                     // oper variable to display on screen otherwise remove it
                     pressed != '=' ? oper = pressed : (oper = '', firstPart=true);
                     updateDisplay();
-            }}
+            }};
             // enter the operator and move on to inputB
             if (inputA != '' && pressed != '=') {
                 oper = pressed;
                 firstPart = false;
                 updateDisplay();
-            }
-        }
-    }
+            };
+        };
+    };
         
     function clear(error=false) {
         inputA = '';
@@ -139,28 +139,27 @@
         firstPart = true;
         screen.style.fontSize = '78px';
         error ? null: updateDisplay();
-    }
+    };
 
     function selectBtn(e) {
         e.type == "mousedown" ? e.target.classList.add('clicked') : 
             e.target.classList.remove('clicked')
-    }
+    };
 
     function updateDisplay() {
-        display = inputA == '' ? 0 : `${inputA} ${oper} ${inputB}`
+        display = inputA == '' ? 0 : `${inputA} ${oper} ${inputB}`;
         screen.innerText = display;
         if (screen.innerText.length > 13) {
             screen.innerText = 'TOO LONG';
             clear(error=true);
-        }
-    }
+        };
+    };
 
     function keyPressed(e) {
-        console.log(e.key)
          const keysUsed = [
             '1', '2', '3', '4', '5','6', '7', '8', '9','0','-','+','Backspace',
             'x', 'X', 'c', 'C', '*', '/', '=', 'Enter', 'Escape', '.'
-        ]
+        ];
         if (keysUsed.includes(e.key)) {
             let pressed = e.key;
             let type = 'input-btn'
@@ -188,16 +187,16 @@
                 case '=':
                     type = 'operator-btn';
                     break;
-            }
+            };
             calculator(pressed, type);
-        }
-    }
+        };
+    };
 
     function buttonClick(e) {
         let pressed = e.target.innerText;
         let type = e.target.className;
         calculator(pressed, type);
-    }
+    };
     </script>
 </body>
 </html>
