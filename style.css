@@ -1,6 +1,7 @@
 body {
     background-color: rgb(7, 7, 7);
     padding-top: 60px;
+    font-family: sans-serif;
 }
 
 #calculator {
@@ -13,10 +14,13 @@ body {
 }
 
 #screen {
-    height: 200px;
+    width: 574px;
+    height: 100px;
     border: 3px solid black;
     border-radius: 15px;
     background-color: rgb(143, 143, 143);
+    padding: 30px;
+    font-size: 78px;
 }
 
 #input-div {
@@ -45,15 +49,28 @@ button {
     border: 1px solid black;
     border-radius: 15px;
     font-size: 38px;
+
 }
+
 
 .input-btn {
     width: 140px;
-    height: 125px;
+    height: 100px;
+}
+
+.left-inputs :first-child{
+    grid-column: 1 / -1;
 }
 
 .operator-btn {
     width: 100px;
     height: 100px;
     border-radius: 100px;
+    background-color: salmon 
+}
+
+
+
+.clicked {
+    background-color: gray;
 }

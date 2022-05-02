@@ -14,7 +14,7 @@
         </div>
         <div id="input-div">
             <div class="left-inputs">
-                
+                <button class="input-btn">C</button>
                 <button class="input-btn">9</button>
                 <button class="input-btn">8</button>
                 <button class="input-btn">7</button>
@@ -24,7 +24,7 @@
                 <button class="input-btn">3</button>
                 <button class="input-btn">2</button>
                 <button class="input-btn">1</button>
-                <button class="input-btn">C</button>
+                <button class="input-btn"><--</button>
                 <button class="input-btn">0</button>
                 <button class="input-btn">.</button>
                 
@@ -55,13 +55,13 @@
         function operate (operator, a, b) {
             switch (operator) {
                 case '+':
-                    return Math.round(add(a,b) * 100) / 100
+                    return (Math.round(add(a,b) * 100) / 100).toString()
                 case '-':
-                    return Math.round(sub(a,b) * 100) / 100
+                    return (Math.round(sub(a,b) * 100) / 100).toString()
                 case '*':
-                    return Math.round(mult(a,b) * 100) / 100
+                    return (Math.round(mult(a,b) * 100) / 100).toString()
                 case '/':
-                    return Math.round(div(a,b) * 100) / 100
+                    return (Math.round(div(a,b) * 100) / 100).toString()
             }
         }
 
@@ -80,6 +80,15 @@
         if (e.target.className == 'input-btn') {
             if (pressed == 'C') {
                 clear()
+            }
+            else if (pressed == '<--') {
+                firstPart ? 
+                    inputA != '' ? inputA = inputA.slice(0,-1) : null : null
+                firstPart == false ? 
+                    inputB.length != '' ? inputB = inputB.slice(0,-1) :
+                    oper != '' ? (oper = '', firstPart=true): null : null
+
+                updateDisplay()
             }
             // check if there's a decimal before adding another one
             else if (pressed == '.') {
@@ -118,7 +127,6 @@
                 updateDisplay()
             }
         }
-        console.log(`a:${inputA} b:${inputB}`)
     }
         
     function clear() {
