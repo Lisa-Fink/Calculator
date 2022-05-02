@@ -10,7 +10,7 @@
 <body>
     <div id="calculator">
         <div id="screen">
-            
+            <div id="digits"></div>
         </div>
         <div id="input-div">
             <div class="left-inputs">
@@ -65,7 +65,7 @@
             }
         }
 
-    const screen = document.getElementById('screen')
+    const screen = document.getElementById('digits')
     
 
     const buttons = [...document.querySelectorAll('button')]
@@ -83,12 +83,15 @@
             }
             else if (pressed == '<--') {
                 firstPart ? 
-                    inputA != '' ? inputA = inputA.slice(0,-1) : null : null
+                    inputA != '' ? (
+                        inputA = inputA.slice(0,-1), updateDisplay(b=true)) :
+                        null : null
                 firstPart == false ? 
                     inputB.length != '' ? inputB = inputB.slice(0,-1) :
-                    oper != '' ? (oper = '', firstPart=true): null : null
+                    oper != '' ? (oper = '', firstPart=true, updateDisplay(b=true)): 
+                    null : null
 
-                updateDisplay()
+                
             }
             // check if there's a decimal before adding another one
             else if (pressed == '.') {
@@ -97,10 +100,12 @@
                 } else {
                     inputB.includes('.') ? null: inputB += pressed
                 }
+                updateDisplay()
             } else {
                 firstPart ? inputA += pressed : inputB += pressed
+                updateDisplay()
             }
-            updateDisplay()
+            
         } else {
             // ignore pressing the equal sign before second input
             if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
@@ -111,7 +116,7 @@
                 //first check if dividing by 0
                 if (oper =='/' && inputB == '0') {
                     screen.innerText = 'ERROR'
-                    clear()
+                    clear(error=true)
                 } else {
                     inputA = operate(oper, Number(inputA), Number(inputB))
                     inputB = ''
@@ -129,21 +134,31 @@
         }
     }
         
-    function clear() {
+    function clear(error=false) {
         inputA = ''
         inputB = ''
         oper = ''
         firstPart = true
+        screen.style.fontSize = '78px'
+        error ? null: updateDisplay()
     }
 
     function selectBtn(e) {
         e.target.classList.toggle('clicked')
     }
 
-    function updateDisplay() {
+    function updateDisplay(b=false) {
         display = `${inputA} ${oper} ${inputB}`
         screen.innerText = display
+        if (screen.innerText.length > 13) {
+            screen.innerText = 'TOO LONG'
+            clear(error=true)
+        }
     }
+
+
+        
+
     </script>
 </body>
 </html>
