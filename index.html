@@ -78,19 +78,15 @@
                 clear();
             } else if (pressed == '<--') {
                 firstPart ? 
-                    inputA != '' ? inputA = inputA.slice(0,-1) : null : null;
-                firstPart == false ? 
+                    inputA != '' ? inputA = inputA.slice(0,-1) : null :
                     inputB.length != '' ? inputB = inputB.slice(0,-1) :
-                    oper != '' ? (oper = '', firstPart=true): null : null;
+                    oper != '' ? (oper = '', firstPart=true): null
                 updateDisplay();
             }
             // check if there's a decimal before adding another one
             else if (pressed == '.') {
-                if (firstPart) {
-                    inputA.includes('.') ? null :  inputA += pressed;
-                } else {
-                    inputB.includes('.') ? null: inputB += pressed;
-                };
+                firstPart ? inputA.includes('.') ? null :  inputA += pressed:
+                inputB.includes('.') ? null: inputB += pressed;
                 updateDisplay();
             } else {
                 firstPart ? inputA += pressed : inputB += pressed;
@@ -98,10 +94,6 @@
             };
             
         } else {
-            // ignore pressing the equal sign before second input
-            if (pressed == '=' && firstPart | pressed == '=' && inputB =='') {
-                null;
-                };
             // calculating the result
             if (firstPart == false &&  inputB != ''){
                 //first check if dividing by 0
@@ -149,10 +141,9 @@
     };
 
     function keyPressed(e) {
-         const keysUsed = [
-            '1', '2', '3', '4', '5','6', '7', '8', '9','0','-','+','Backspace',
-            'x', 'X', 'c', 'C', '*', '/', '=', 'Enter', 'Escape', '.'
-        ];
+         const keysUsed = [ '1', '2', '3', '4', '5','6', '7', '8', '9',
+                            '0','-','+','Backspace', 'x', 'X', 'c', 'C', 
+                            '*', '/', '=', 'Enter', 'Escape', '.'];
         if (keysUsed.includes(e.key)) {
             let pressed = e.key;
             let type = 'input-btn'
