@@ -134,10 +134,7 @@
     function updateDisplay() {
         display = inputA == '' ? 0 : `${inputA} ${oper} ${inputB}`;
         screen.innerText = display;
-        if (screen.innerText.length > 13) {
-            screen.innerText = 'TOO LONG';
-            clear(error=true);
-        };
+        digits.scrollIntoView(false);
     };
 
     function keyPressed(e) {
@@ -181,6 +178,7 @@
         let type = e.target.className;
         calculator(pressed, type);
     };
+
     </script>
 </body>
 </html>

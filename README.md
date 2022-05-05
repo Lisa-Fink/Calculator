@@ -13,4 +13,4 @@ Also accepts additional keyboard commands of:
     X or x: Multiply
   
 All caulculations are rounded to two decimal places.
-A maximum of 13 characters are allowed before resulting in an error and resetting the calculator.
+

@@ -21,9 +21,10 @@ body {
     background-color: rgb(143, 143, 143);
     padding: 30px;
     font-size: 78px;
+    overflow-y:auto;
     text-align: right;
+    word-break: break-all;
 }
-
 
 #input-div {
     display: flex;
